@@ -1,8 +1,7 @@
 using UnityEngine;
 
-public class LevelDetails : MonoBehaviour
+public class LevelManager : MonoBehaviour
 {
-    [SerializeField] private Transform spawnPoint;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
