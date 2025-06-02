@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2050777873545064479}
   - component: {fileID: 3396623420472947624}
   - component: {fileID: 1104559102692742619}
+  - component: {fileID: 3416177667130119672}
   m_Layer: 5
   m_Name: Btn
   m_TagString: Untagged
@@ -122,7 +123,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2050777873545064479}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3416177667130119672}
+        m_TargetAssemblyTypeName: TheBallBtn, Assembly-CSharp
+        m_MethodName: DropBall
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!95 &1104559102692742619
 Animator:
   serializedVersion: 7
@@ -145,6 +158,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3416177667130119672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4676611611469253603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73b142a0f9308d94b8e3450d1b388516, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ballType_: 0
+  remainingballs: {fileID: 34825359032202526}
+  ballIcon: {fileID: 7666755129929665636}
 --- !u!1 &7179027272353004075
 GameObject:
   m_ObjectHideFlags: 0
