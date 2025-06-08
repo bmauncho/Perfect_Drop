@@ -40,6 +40,11 @@ public class LevelManager : MonoBehaviour
         ActiveLevel = GetActiveLevel();
     }
 
+    public void DeactivateLevel ()
+    {
+        LevelParent.gameObject.SetActive(false);
+    }
+
     public GameObject GetActiveLevel ()
     {
         if (LevelsQue.Count > 0)
@@ -48,11 +53,6 @@ public class LevelManager : MonoBehaviour
             return ActiveLevel;
         }
         return null;
-    }
-
-    public void DeactivateLevel ()
-    {
-        LevelParent.gameObject.SetActive(false);
     }
     private void ConfigureLevelsQueue ()
     {
@@ -149,6 +149,7 @@ public class LevelManager : MonoBehaviour
         LevelsQue [index] = newLevel;
         newLevel.SetActive(true);
         Destroy(oldLevel);
+        ActiveLevel = newLevel;
     }
 
     public void EnableFakeLevel ()

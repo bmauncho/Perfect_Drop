@@ -5,8 +5,7 @@ using UnityEngine.UIElements;
 public class TimeManager : MonoBehaviour
 {
     [SerializeField] private bool shouldCount = true;
-    [SerializeField] private float timeValue = 90;
-    [SerializeField] private float defaultTimeValue = 90;
+    [SerializeField] private float timeValue = 0;
     [SerializeField] private TMP_Text LevelTimer;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -17,16 +16,9 @@ public class TimeManager : MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
-        if (timeValue > 0)
-        {
-            if (!shouldCount) { return; }
+        if (!shouldCount) { return; }
 
-            timeValue -= Time.deltaTime;
-        }
-        else
-        {
-            timeValue = 0;
-        }
+        timeValue += Time.deltaTime;
         DisplayTime(timeValue);
     }
 
@@ -36,10 +28,6 @@ public class TimeManager : MonoBehaviour
         {
             timeToDisplay = 0;
         }
-        else if (timeToDisplay > 0)
-        {
-            timeToDisplay += 1;
-        }
 
         float minutes = Mathf.FloorToInt(timeToDisplay / 60);
         float seconds = Mathf.FloorToInt(timeToDisplay % 60);
@@ -47,12 +35,12 @@ public class TimeManager : MonoBehaviour
         LevelTimer.text = string.Format("{0:00} : {1:00}" , minutes , seconds);
     }
 
-    public void IncreaseCountDownTimer ( float Time )
+    public void AccelerateTimer ( float Time )
     {
         timeValue = timeValue + Time;
     }
 
-    public void DecreaseCountDownTimer ( float Time )
+    public void DecelerateTimer ( float Time )
     {
         timeValue = timeValue - Time;
     }
@@ -69,7 +57,7 @@ public class TimeManager : MonoBehaviour
 
     public void ResetTimer ()
     {
-        timeValue = defaultTimeValue;
+        timeValue = 0;
         DisplayTime(timeValue);
     }
 

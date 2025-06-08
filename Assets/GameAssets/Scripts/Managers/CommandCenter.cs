@@ -10,6 +10,7 @@ public class CommandCenter : MonoBehaviour
     public CurrencyManager currencyManager_;
     public LivesManager livesManager_;
     public TimeManager timeManager_;
+    public MainMenuController mainMenuController_;
     private void Awake ()
     {
         if (Instance != null && Instance != this)

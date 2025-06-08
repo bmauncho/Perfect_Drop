@@ -256,7 +256,7 @@ MonoBehaviour:
     Model: {fileID: 6486488167717490396}
   - ballType: 7
     Model: {fileID: 4130724305302631243}
-  speedMultiplier: 1
+  speedMultiplier: 12
 --- !u!114 &-1148278089715049900
 MonoBehaviour:
   m_ObjectHideFlags: 0

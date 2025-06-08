@@ -33,7 +33,7 @@ public class GamePlayManager : MonoBehaviour
             {
                 levelDetails.CheckForBallsTouchingTrigger();
 
-                if (isBallOutOfBounds() && timeManager.GetTimeValue() > 0)
+                if (isBallOutOfBounds())
                 {
                     //show failed UI
                     if (!canShowEndLevelUI)
@@ -45,7 +45,7 @@ public class GamePlayManager : MonoBehaviour
                     return; // Exit early if any ball is out of bounds
                 }
 
-                if (levelDetails.remainingBalls() <= 0 && timeManager.GetTimeValue()>0)
+                if (levelDetails.remainingBalls() <= 0)
                 {
                     //wait for a few seconds to check if any balls are touching the trigger due to physics
                     Delay -= Time.deltaTime;
@@ -72,16 +72,6 @@ public class GamePlayManager : MonoBehaviour
                             levelDetails.LevelSucceded();
                             Delay = 3f; // Reset the delay timer
                         }
-                    }
-                }
-                else if (levelDetails.remainingBalls() > 0 && timeManager.GetTimeValue() <= 0)
-                {
-                    //show failed UI
-                    if (!canShowEndLevelUI)
-                    {
-                        canShowEndLevelUI = true;
-                        levelDetails.LevelFailed();
-                        Delay = 3f; // Reset the delay timer
                     }
                 }
             }
@@ -194,5 +184,13 @@ public class GamePlayManager : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void ResetGameplay ()
+    {
+        canShowEndLevelUI = false;
+        ResetBalllsInCurrentLevelList();
+        CommandCenter.Instance.gamePlayManager_.SetUpBtns();
+        CommandCenter.Instance.timeManager_.ResetTimer();
     }
 }

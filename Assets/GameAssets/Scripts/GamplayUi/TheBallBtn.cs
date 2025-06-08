@@ -19,6 +19,11 @@ public class TheBallBtn : MonoBehaviour
 
     public void DropBall ()
     {
+        if(CommandCenter.Instance.gamePlayManager_.isBallOutOfBounds())
+        {
+            Debug.LogWarning("Cannot drop ball, one or more balls are out of bounds.");
+            return;
+        }
         if (ballsCount_ > 0)
         {
             CommandCenter.Instance.gamePlayManager_.ReduceBalls(ballType_);

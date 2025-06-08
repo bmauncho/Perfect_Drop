@@ -12,6 +12,8 @@ public class LevelDetails : MonoBehaviour
     [SerializeField] private bool isBallTouchingTrigger;
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private LevelInfo[] levelInfo;
+    public bool isLevelWon =false;
+    public bool isLevelFailed = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -42,11 +44,17 @@ public class LevelDetails : MonoBehaviour
     public void LevelSucceded ()
     {
         Debug.Log("Level Succeeded!");
+        isLevelWon = true;
+        CommandCenter.Instance.mainMenuController_.levelEnd.ShowWinLevelUI(); // Show the win level UI
+        CommandCenter.Instance.timeManager_.stopTimer();
     }
 
     public void LevelFailed ()
     {
         Debug.Log("Level Failed!");
+        isLevelFailed = true;
+        CommandCenter.Instance.mainMenuController_.levelEnd.ShowFailedLevelUI(); // Show the failed level UI
+        CommandCenter.Instance.timeManager_.stopTimer();
     }
 
     public bool IsBallTouchingTrigger ()
@@ -103,5 +111,12 @@ public class LevelDetails : MonoBehaviour
         {
             return remainingBallsCount;
         }
+    }
+
+    public void resetLevel ()
+    {
+        isBallTouchingTrigger = false;
+        isLevelFailed = false;
+        isLevelWon = false;
     }
 }

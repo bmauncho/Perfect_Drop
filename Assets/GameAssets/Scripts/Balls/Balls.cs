@@ -21,7 +21,7 @@ public class Balls : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        rb.AddForce(Vector3.down * speedMultiplier , ForceMode.Impulse);
+        rb.linearVelocity = new Vector3(rb.linearVelocity.x , -(speedMultiplier) , rb.linearVelocity.z);
     }
 
     public BallInfo GetBallInfo ( BallType ballType )

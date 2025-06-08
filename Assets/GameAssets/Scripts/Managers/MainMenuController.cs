@@ -7,6 +7,9 @@ public class MainMenuController : MonoBehaviour
     [Header("UI Elements")]
     public GameObject GameplayUI;
     public GameObject MainMenuUI;
+
+    [Header("References")]
+    public LevelEnd levelEnd;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -48,7 +51,10 @@ public class MainMenuController : MonoBehaviour
         }
         DisableMainMenuUI();
         EnableGamePlayUI();
-        // add a start sequence
+        //show levelSelection UI
+
+
+
         CommandCenter.Instance.levelManager_.ActivateLevel();
         CommandCenter.Instance.gamePlayManager_.SetUpBtns();
         CommandCenter.Instance.timeManager_.StartTimer();
