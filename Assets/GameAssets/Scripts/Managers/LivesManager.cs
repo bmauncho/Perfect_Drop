@@ -12,9 +12,8 @@ public class LivesManager : MonoBehaviour
     [SerializeField] private bool shouldCount = true;
     [SerializeField] private float timeValue = 90;
     [SerializeField] private float DefaultTimeValue = 10;
-    [SerializeField] private RectTransform livesTimePanel;
     [SerializeField] private TMP_Text LivesTimer;
-    [SerializeField] private GameObject [] lives;
+    [SerializeField] private TMP_Text LivesText;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -37,30 +36,9 @@ public class LivesManager : MonoBehaviour
         DisplayTime(timeValue);
     }
 
-    public void StartTimer ()
-    {
-       StartCoroutine(showLivesTimer());
-    }
-
     public void stopTimer ()
     {
         shouldCount = false;
-    }
-
-    IEnumerator showLivesTimer()
-    {
-        Tween myTween = livesTimePanel.DOAnchorPosY(0 , .25f).SetEase(Ease.InOutQuad);
-        yield return myTween.WaitForCompletion();
-        shouldCount = true;
-        yield return null;
-    }
-
-    IEnumerator HideLivesTimePanel ()
-    {
-        Tween myTween = livesTimePanel.DOAnchorPosY(60 , .25f).SetEase(Ease.InOutQuad);
-        yield return myTween.WaitForCompletion();
-        shouldCount = false;
-        yield return null;
     }
 
     private void DisplayTime ( float timeToDisplay )
@@ -95,32 +73,12 @@ public class LivesManager : MonoBehaviour
         else if(currentLives >= maxLives)
         {
             shouldCount = false;
-            StartCoroutine(HideLivesTimePanel());
         }
     }
 
     public void RefreshLivesUI ()
     {
-        for (int i = 0 ; i < lives.Length ; i++)
-        {
-            if (i < currentLives)
-            {
-                lives [i].SetActive(true);
-            }
-            else
-            {
-                lives [i].SetActive(false);
-            }
-        }
-
-        if (currentLives >= maxLives)
-        {
-            StartCoroutine(HideLivesTimePanel());
-        }
-        else
-        {
-            StartCoroutine(showLivesTimer());
-        }
+        LivesText.text = $"{currentLives.ToString()}/{maxLives}";
     }
 
 

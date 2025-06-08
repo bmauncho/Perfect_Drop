@@ -27,9 +27,12 @@ public class LevelDetails : MonoBehaviour
         float width = scale.x;
         ball.GetComponentInChildren<TrailRenderer>().startWidth = Mathf.Clamp01(width);
         ball.GetComponent<Balls>().SetActiveBall(ballType,scale);
-        Rigidbody rb = ball.GetComponentInChildren<Rigidbody>();
-        rb.linearVelocity = Vector3.down * 5f; // Makes it fall fast
-        //Debug.Log($"Drop {ballType}");
+        MeshCollider meshCollider = ball.GetComponentInChildren<MeshCollider>();
+        Rigidbody rb = ball.GetComponent<Rigidbody>();
+        rb.mass = ballManager.GetBallDetails(ballType).Ballweight; // Set the weight of the ball
+        meshCollider.material = ballManager.GetBallDetails(ballType).ballMaterial; // Set the physics material
+        CommandCenter.Instance.gamePlayManager_.AddBall(ball); // Add the ball to the gameplay manager
+        ball.GetComponent<Balls>().isFalling = true; // Set the ball to falling state
     }
     public LevelInfo[] GetLevelInfo ()
     {

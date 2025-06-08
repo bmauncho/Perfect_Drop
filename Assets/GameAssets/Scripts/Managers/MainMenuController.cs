@@ -49,7 +49,6 @@ public class MainMenuController : MonoBehaviour
         DisableMainMenuUI();
         EnableGamePlayUI();
         // add a start sequence
-
         CommandCenter.Instance.levelManager_.ActivateLevel();
         CommandCenter.Instance.gamePlayManager_.SetUpBtns();
         CommandCenter.Instance.timeManager_.StartTimer();

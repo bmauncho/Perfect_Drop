@@ -11,18 +11,17 @@ public class Balls : MonoBehaviour
     [Header("Ball Settings")]
     public BallType ActiveballType_;
     public bool isTouchingTrigger = false;
+    public bool isFalling = false; // Flag to check if the ball is falling
+
     public Transform model;
     public BallInfo [] ballInfo_;
+    public float speedMultiplier = 2f;
+    private Rigidbody rb;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        rb = GetComponent<Rigidbody>();
+        rb.AddForce(Vector3.down * speedMultiplier , ForceMode.Impulse);
     }
 
     public BallInfo GetBallInfo ( BallType ballType )

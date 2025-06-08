@@ -16,7 +16,9 @@ public class BallDetails
 {
     public BallType ballType;
     public Sprite ballIcon;
+    public float Ballweight = 1f; // Default weight, can be adjusted per ball type
     public Vector3 ballscale = Vector3.one;
+    public PhysicsMaterial ballMaterial;
 }
 public class BallManager : MonoBehaviour
 {
