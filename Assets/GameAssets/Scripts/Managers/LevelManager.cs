@@ -109,13 +109,14 @@ public class LevelManager : MonoBehaviour
         PlayerPrefs.SetInt("LEVEL" , CurrentLevelCounter);
 
         SpawnOneLevel();
-
+        GameObject newlevel = null;
         LevelsQue [1].SetActive(true);
         LevelsQue [0].SetActive(false);
-
         GameObject oldLevel = LevelsQue [0];
         LevelsQue.RemoveAt(0);
         Destroy(oldLevel);
+        newlevel = LevelsQue [0];
+        ActiveLevel = newlevel;
     }
 
     public void RetryLevel ()

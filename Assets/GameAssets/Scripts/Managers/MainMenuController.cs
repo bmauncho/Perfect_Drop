@@ -44,7 +44,11 @@ public class MainMenuController : MonoBehaviour
 
     public void Startlevel ()
     {
-        if(CommandCenter.Instance.livesManager_.GetCurrentLives() <= 0)
+        Invoke(nameof(triggerStart) , .25f);
+    }
+    void triggerStart ()
+    {
+        if (CommandCenter.Instance.livesManager_.GetCurrentLives() <= 0)
         {
             Debug.LogWarning("No lives left to start the level.");
             return;

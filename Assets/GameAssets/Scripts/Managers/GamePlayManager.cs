@@ -51,7 +51,7 @@ public class GamePlayManager : MonoBehaviour
                     Delay -= Time.deltaTime;
                     if (Delay > 0) { return; } // Wait for the delay before checking again
                     // Check if any balls are touching the trigger and time is still left
-                    if (levelDetails.CheckForBallsTouchingTrigger())
+                    if (levelDetails.CheckForBallsTouchingTrigger() || isBallOutOfBounds())
                     {
                         //show failed UI
                         if (!canShowEndLevelUI)
