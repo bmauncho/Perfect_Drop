@@ -113,6 +113,11 @@ public class LevelDetails : MonoBehaviour
         }
     }
 
+    public LevelInfo [] GetLevelInfos ()
+    {
+        return levelInfo;
+    }
+
     public void resetLevel ()
     {
         isBallTouchingTrigger = false;

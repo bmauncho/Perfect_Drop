@@ -1,0 +1,61 @@
+using UnityEngine;
+
+public class GhostPlayer : MonoBehaviour
+{
+    public Ghost ghost;
+    public float timeValue;
+    public int index1;
+    public int index2;
+
+    private void Awake ()
+    {
+        timeValue = 0;
+    }
+    // Update is called once per frame
+    void Update()
+    {
+        timeValue += Time.deltaTime;
+        if (ghost.isReplay)
+        {
+            GetIndex();
+            SetTransform();
+        }
+    }
+
+    public void GetIndex ()
+    {
+        for (int i = 0;i<ghost.timeStamp.Count-2;i++)
+        {
+            if(ghost.timeStamp[i] == timeValue)
+            {
+                index1 = i;
+                index2 = i;
+            }
+            else if(ghost.timeStamp[i] < timeValue && timeValue < ghost.timeStamp [i+1])
+            {
+                index1 = i;
+                index2 = i+1;
+            }
+        }
+
+        index1 = ghost.timeStamp.Count - 1;
+        index2 = ghost.timeStamp.Count - 1;
+    }
+
+    public void SetTransform ()
+    {
+        if(index1 == index2)
+        {
+            this.transform.position = ghost.position [index1];
+            this.transform.eulerAngles = ghost.rotation [index1];
+        }
+        else
+        {
+            float Interpolationfactor = (timeValue-ghost.timeStamp[index1]) / ( ghost.timeStamp [index2] - ghost.timeStamp [index1]);
+
+            this.transform.position = Vector3.Lerp(ghost.position [index1], ghost.position [index2], Interpolationfactor);
+            this.transform.eulerAngles = Vector3.Slerp(ghost.rotation [index1] , ghost.rotation [index2] , Interpolationfactor);
+        }
+    }
+
+}
