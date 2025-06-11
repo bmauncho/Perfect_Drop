@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class LoadingScene : MonoBehaviour
 {
     [SerializeField]private TMP_Text loadingText;
-    [SerializeField] private bool isSceneReady = false;
+    // [SerializeField] private bool isSceneReady = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start ()
     {
@@ -44,7 +44,7 @@ public class LoadingScene : MonoBehaviour
                         yield return null;
                     }
 
-                    isSceneReady = true;
+                    //isSceneReady = true;
                     break;
                 }
             }

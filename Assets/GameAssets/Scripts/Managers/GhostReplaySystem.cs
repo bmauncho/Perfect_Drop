@@ -14,7 +14,7 @@ public class GhostReplaySystem : MonoBehaviour
     public void CreateReplayManager () 
     { 
         int totalLevels = levelManager.Levels.Count;
-
+        Debug.Log(totalLevels);
         for (int i = 0 ; i < totalLevels ; i++)
         {
             int level = i + 1;
@@ -65,6 +65,7 @@ public class GhostReplaySystem : MonoBehaviour
     [ContextMenu("Reset replayManagers")]
     public void ResetManagers ()
     {
+        replaylevelManagers.Clear();
 #if UNITY_EDITOR
         string folderPath = "Assets/Resources/LevelReplayData";
         if (AssetDatabase.IsValidFolder(folderPath))
@@ -101,6 +102,20 @@ public class GhostReplaySystem : MonoBehaviour
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
 #endif
+    }
+
+    public void AssignLevelReplayManagers ()
+    {
+        int currentLevel = CommandCenter.Instance.levelManager_.CurrentLevelCounter;
+        LevelDetails levelDetails = CommandCenter.Instance.levelManager_.ActiveLevel.GetComponent<LevelDetails>();
+        for (int i = 0;i<replaylevelManagers.Count;i++)
+        {
+            if(currentLevel == i)
+            {
+                LevelGhostManager ghostManager = Resources.Load<LevelGhostManager>($"LevelReplayData/level_{i+1}/LevelGhostManager_{i+1}");
+                levelDetails.levelGhostManager = ghostManager;
+            }
+        }
     }
 
     private bool managerExists ( int level )

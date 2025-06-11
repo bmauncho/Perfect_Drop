@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: LevelGhostManager_2
   m_EditorClassIdentifier: 
   levelNo: 2
+  isRecording: 0
+  isReplaying: 0
   ghosts: []

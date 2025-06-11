@@ -1294,6 +1294,7 @@ MonoBehaviour:
   livesManager_: {fileID: 1384002857}
   timeManager_: {fileID: 388900897}
   mainMenuController_: {fileID: 451399477}
+  ghostReplaySystem_: {fileID: 988736011}
 --- !u!1 &437222833
 GameObject:
   m_ObjectHideFlags: 0
@@ -3588,13 +3589,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelManager: {fileID: 1543269512}
   replaylevelManagers:
-  - {fileID: 11400000, guid: ba2a4cef87a3a8541b96ff10240595fd, type: 2}
-  - {fileID: 11400000, guid: beec8d5c8acce914f9158c91e19b6568, type: 2}
-  - {fileID: 11400000, guid: e2f45c0d656079c4c8f47217cdb150ae, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   - {fileID: 11400000, guid: a67ac019403df3f41b2ae59c260ba644, type: 2}
   - {fileID: 11400000, guid: 45ed5ec156fd3454e926dbbd01a0a2d2, type: 2}
   - {fileID: 11400000, guid: 77e6377349a25b942a569dbae053c9ad, type: 2}
@@ -4787,6 +4781,10 @@ MonoBehaviour:
   poolConfigs:
   - objType: 0
     prefab: {fileID: 4349507147552945119, guid: cbc3bb3f6da0832449bddc4d0e60cac5, type: 3}
+    initialSize: 20
+    maxCapacity: 50
+  - objType: 1
+    prefab: {fileID: 4349507147552945119, guid: e92c7de104c8cee4ebd61c5d30c6df64, type: 3}
     initialSize: 20
     maxCapacity: 50
 --- !u!1 &1298389010

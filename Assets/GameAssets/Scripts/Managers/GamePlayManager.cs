@@ -38,6 +38,8 @@ public class GamePlayManager : MonoBehaviour
                     //show failed UI
                     if (!canShowEndLevelUI)
                     {
+                        CommandCenter.Instance.mainMenuController_.isLevelStarted = false;
+                        CommandCenter.Instance.mainMenuController_.isLevelEnded = true;
                         canShowEndLevelUI = true;
                         levelDetails.LevelFailed();
                         Delay = 3f; // Reset the delay timer
@@ -56,6 +58,8 @@ public class GamePlayManager : MonoBehaviour
                         //show failed UI
                         if (!canShowEndLevelUI)
                         {
+                            CommandCenter.Instance.mainMenuController_.isLevelStarted = false;
+                            CommandCenter.Instance.mainMenuController_.isLevelEnded = true;
                             canShowEndLevelUI = true;
                             levelDetails.LevelFailed();
                             Delay = 3f; // Reset the delay timer
@@ -68,6 +72,8 @@ public class GamePlayManager : MonoBehaviour
                         //show success UI
                         if (!canShowEndLevelUI)
                         {
+                            CommandCenter.Instance.mainMenuController_.isLevelStarted = false;
+                            CommandCenter.Instance.mainMenuController_.isLevelEnded = true;
                             canShowEndLevelUI = true;
                             levelDetails.LevelSucceded();
                             Delay = 3f; // Reset the delay timer
@@ -80,6 +86,8 @@ public class GamePlayManager : MonoBehaviour
                 //show failed UI
                 if(!canShowEndLevelUI)
                 {
+                    CommandCenter.Instance.mainMenuController_.isLevelStarted = false;
+                    CommandCenter.Instance.mainMenuController_.isLevelEnded = true;
                     canShowEndLevelUI = true;
                     levelDetails.LevelFailed();
                 }

@@ -30,8 +30,9 @@ public class LevelManager : MonoBehaviour
     {
         if (!PlayerPrefs.HasKey("LEVEL"))
             PlayerPrefs.SetInt("LEVEL" , 0);
-
-        return PlayerPrefs.GetInt("LEVEL");
+        int level = PlayerPrefs.GetInt("LEVEL");
+        level = 0;
+        return level;
     }
 
     public void ActivateLevel ()

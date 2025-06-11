@@ -4,6 +4,7 @@ public class LevelInfo
 {
     public BallType ballType;
     public int ballCount;
+    public int OriginalballCount;
 }
 public class LevelDetails : MonoBehaviour
 {
@@ -14,10 +15,23 @@ public class LevelDetails : MonoBehaviour
     [SerializeField] private LevelInfo[] levelInfo;
     public bool isLevelWon =false;
     public bool isLevelFailed = false;
+    public LevelGhostManager levelGhostManager;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         poolManager = CommandCenter.Instance.poolManager_;
+        CommandCenter.Instance.ghostReplaySystem_.AssignLevelReplayManagers();
+        SetUp();
+    }
+    private void SetUp ()
+    {
+        foreach (var level in levelInfo)
+        {
+            if (level != null)
+            {
+                level.OriginalballCount = level.ballCount;
+            }
+        }
     }
 
     public void DropBall( BallType ballType)
@@ -35,6 +49,37 @@ public class LevelDetails : MonoBehaviour
         meshCollider.material = ballManager.GetBallDetails(ballType).ballMaterial; // Set the physics material
         CommandCenter.Instance.gamePlayManager_.AddBall(ball); // Add the ball to the gameplay manager
         ball.GetComponent<Balls>().isFalling = true; // Set the ball to falling state
+        AssignGhost(ball , ballType);
+    }
+
+    public void AssignGhost (GameObject Ball, BallType type = BallType.BasketBall)
+    {
+        int currLevel = CommandCenter.Instance.levelManager_.CurrentLevelCounter+1;
+        int ballindex = GetGhostIndex(type);
+        string fileAssetpath = $"LevelReplayData/Level_{currLevel}/Ghost_{type}_{currLevel}_{ballindex}";
+        Debug.Log(fileAssetpath);
+        Ghost ghost = Resources.Load<Ghost>(fileAssetpath);
+        Ball.GetComponent<GhostRecorder>().ghost = ghost;
+    }
+    public int GetGhostIndex ( BallType type )
+    {
+        //o-original
+        //c-current
+        // ((o-c)-1)
+        int index = 0;
+        int currLevel = 0;
+        int origLevel = 0;
+        for( int i = 0;i<levelInfo.Length;i++)
+        {
+            if (levelInfo [i].ballType == type)
+            {
+                currLevel = levelInfo [i].ballCount;
+                origLevel = levelInfo [i].OriginalballCount;
+                break;
+            }
+        }
+        index = ((origLevel-currLevel)-1);
+        return index;
     }
     public LevelInfo[] GetLevelInfo ()
     {

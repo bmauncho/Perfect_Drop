@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class MainMenuController : MonoBehaviour
 {
-    [SerializeField] private bool isLevelStarted = false;
-    [SerializeField] private bool isLevelEnded = false;
+    public bool isLevelStarted = false;
+    public bool isLevelEnded = false;
     [Header("UI Elements")]
     public GameObject GameplayUI;
     public GameObject MainMenuUI;
@@ -58,7 +58,8 @@ public class MainMenuController : MonoBehaviour
         //show levelSelection UI
 
 
-
+        isLevelStarted = true;
+        isLevelEnded = false;
         CommandCenter.Instance.levelManager_.ActivateLevel();
         CommandCenter.Instance.gamePlayManager_.SetUpBtns();
         CommandCenter.Instance.timeManager_.StartTimer();

@@ -15,6 +15,11 @@ MonoBehaviour:
   isRecord: 0
   isReplay: 0
   recordFrequency: 0
-  timeStamp: []
-  position: []
-  rotation: []
+  prevRecord:
+    timeStamp: []
+    position: []
+    rotation: []
+  currRecord:
+    timeStamp: []
+    position: []
+    rotation: []

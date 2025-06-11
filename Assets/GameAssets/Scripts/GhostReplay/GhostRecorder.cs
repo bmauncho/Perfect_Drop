@@ -19,14 +19,22 @@ public class GhostRecorder : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(!CommandCenter.Instance)return;
+        if(ghost==null) return;
+
+        if (CommandCenter.Instance.mainMenuController_.isLevelEnded)
+        {
+            return;
+        }
+
         timer += Time.unscaledDeltaTime;
         timeValue += Time.unscaledDeltaTime;
 
         if(ghost.isRecord && timer >= 1 / ghost.recordFrequency)
         {
-            ghost.timeStamp.Add(timeValue);
-            ghost.position.Add(this.transform.position);
-            ghost.rotation.Add(this.transform.eulerAngles);
+            ghost.currRecord.timeStamp.Add(timeValue);
+            ghost.currRecord.position.Add(this.transform.position);
+            ghost.currRecord.rotation.Add(this.transform.eulerAngles);
             timer = 0;
         }
     }

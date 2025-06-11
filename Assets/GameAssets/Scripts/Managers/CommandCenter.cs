@@ -11,6 +11,7 @@ public class CommandCenter : MonoBehaviour
     public LivesManager livesManager_;
     public TimeManager timeManager_;
     public MainMenuController mainMenuController_;
+    public GhostReplaySystem ghostReplaySystem_;
     private void Awake ()
     {
         if (Instance != null && Instance != this)
