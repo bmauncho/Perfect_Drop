@@ -17,6 +17,8 @@ public class Balls : MonoBehaviour
     public BallInfo [] ballInfo_;
     public float speedMultiplier = 2f;
     private Rigidbody rb;
+    public GhostRecorder ghostRecorder;
+    public string Identifier = string.Empty;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

@@ -8,7 +8,6 @@ public class GhostBall : MonoBehaviour
 
     public void SetActiveBall ( BallType ballType , Vector3 scale = default )
     {
-
         ActiveballType_ = ballType;
 
         if (scale == default)

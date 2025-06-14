@@ -20,16 +20,27 @@ public class Ghost : ScriptableObject
 
     public void ResetData ()
     {
-        if(!isPrevDataAvailable() && !isCurrDataAvailable()) {  return; }
-
-        if(isPrevDataAvailable() && isCurrDataAvailable() ||
-           !isPrevDataAvailable() && isCurrDataAvailable() )
+        if (!isPrevDataAvailable() && !isCurrDataAvailable()) 
         {
+            Debug.Log("No Data to reset.");
+            return; 
+        }
+
+        if (isPrevDataAvailable() && isCurrDataAvailable() ||
+           !isPrevDataAvailable() && isCurrDataAvailable())
+        {
+            Debug.Log("Save currRecord to prevRecord! ");
+            prevRecord = new RecordData
+            {
+                timeStamp = new List<float>() ,
+                position = new List<Vector3>() ,
+                rotation = new List<Vector3>()
+            };
             //replace prev data with curr data
             prevRecord.timeStamp = currRecord.timeStamp;
             prevRecord.position = currRecord.position;
             prevRecord.rotation = currRecord.rotation;
-
+            Debug.Log("Clear  currRecord! ");
             ClearCurrentData();
         }
     }
@@ -50,7 +61,7 @@ public class Ghost : ScriptableObject
 
     public bool isPrevDataAvailable ()
     {
-        bool isRecordAvailable = 
+        bool isRecordAvailable =
             ( prevRecord.timeStamp != null || prevRecord.timeStamp.Count > 0 ) &&
             ( prevRecord.position != null || prevRecord.position.Count > 0 ) &&
             ( prevRecord.rotation != null || prevRecord.rotation.Count > 0 );

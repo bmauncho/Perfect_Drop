@@ -14,9 +14,15 @@ public class GhostPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(ghost == null) { return; }
         timeValue += Time.deltaTime;
         if (ghost.isReplay)
         {
+            if (ghost.prevRecord.timeStamp.Count == 0 ||
+                    ghost.prevRecord.timeStamp == null)
+            {
+                return;
+            }
             GetIndex();
             SetTransform();
         }
@@ -24,6 +30,7 @@ public class GhostPlayer : MonoBehaviour
 
     public void GetIndex ()
     {
+
         for (int i = 0;i<ghost.prevRecord.timeStamp.Count-2;i++)
         {
             if(ghost.prevRecord.timeStamp[i] == timeValue)
@@ -44,6 +51,7 @@ public class GhostPlayer : MonoBehaviour
 
     public void SetTransform ()
     {
+
         if(index1 == index2)
         {
             this.transform.position = ghost.prevRecord.position [index1];

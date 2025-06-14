@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GhostRecorder : MonoBehaviour
@@ -5,6 +6,7 @@ public class GhostRecorder : MonoBehaviour
     public Ghost ghost;
     public float timer;
     public float timeValue;
+    public string Identifier = string.Empty;
 
     private void Awake ()
     {
@@ -13,6 +15,12 @@ public class GhostRecorder : MonoBehaviour
             ghost.ResetData();
             timeValue = 0;
             timer = 0;
+            ghost.currRecord = new RecordData
+            {
+                timeStamp = new List<float>() ,
+                position = new List<Vector3>() ,
+                rotation = new List<Vector3>()
+            };
         }
     }
 
@@ -36,6 +44,7 @@ public class GhostRecorder : MonoBehaviour
             ghost.currRecord.position.Add(this.transform.position);
             ghost.currRecord.rotation.Add(this.transform.eulerAngles);
             timer = 0;
+            Debug.Log("Recorded frame");
         }
     }
 }

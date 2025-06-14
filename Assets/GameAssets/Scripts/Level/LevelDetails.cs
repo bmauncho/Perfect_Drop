@@ -1,3 +1,5 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 [System.Serializable]
 public class LevelInfo
@@ -16,12 +18,16 @@ public class LevelDetails : MonoBehaviour
     public bool isLevelWon =false;
     public bool isLevelFailed = false;
     public LevelGhostManager levelGhostManager;
+    public List<Balls> balls = new List<Balls>();
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         poolManager = CommandCenter.Instance.poolManager_;
         CommandCenter.Instance.ghostReplaySystem_.AssignLevelReplayManagers();
         SetUp();
+        levelGhostManager.Record();
+       // levelGhostManager.Replay();
+        balls.Clear();
     }
     private void SetUp ()
     {
@@ -50,16 +56,26 @@ public class LevelDetails : MonoBehaviour
         CommandCenter.Instance.gamePlayManager_.AddBall(ball); // Add the ball to the gameplay manager
         ball.GetComponent<Balls>().isFalling = true; // Set the ball to falling state
         AssignGhost(ball , ballType);
+        if (!balls.Contains(ball.GetComponent<Balls>()))
+        {
+            balls.Add(ball.GetComponent<Balls>()); // Add the ball to the list of balls
+        }
     }
 
     public void AssignGhost (GameObject Ball, BallType type = BallType.BasketBall)
     {
         int currLevel = CommandCenter.Instance.levelManager_.CurrentLevelCounter+1;
         int ballindex = GetGhostIndex(type);
+        string assetName = $"Ghost_{type}_{currLevel}_{ballindex}";
         string fileAssetpath = $"LevelReplayData/Level_{currLevel}/Ghost_{type}_{currLevel}_{ballindex}";
-        Debug.Log(fileAssetpath);
+        //Debug.Log(fileAssetpath);
         Ghost ghost = Resources.Load<Ghost>(fileAssetpath);
         Ball.GetComponent<GhostRecorder>().ghost = ghost;
+        GhostRecorder ghostRecorder = Ball.GetComponent<GhostRecorder>();   
+        Ball.GetComponent<Balls>().ghostRecorder = ghostRecorder; // Assign the ghost recorder to the ball
+        Ball.GetComponent<Balls>().Identifier = assetName; // Set the identifier for the ball
+        ghostRecorder.Identifier = assetName; // Set the identifier for the ghost recorder
+        levelGhostManager.SetDropTime(Ball.GetComponent<Balls>());
     }
     public int GetGhostIndex ( BallType type )
     {
@@ -161,6 +177,11 @@ public class LevelDetails : MonoBehaviour
     public LevelInfo [] GetLevelInfos ()
     {
         return levelInfo;
+    }
+
+    public Transform GetSpawnPoint ()
+    {
+        return spawnPoint;
     }
 
     public void resetLevel ()

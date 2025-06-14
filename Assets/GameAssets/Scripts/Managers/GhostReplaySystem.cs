@@ -7,6 +7,7 @@ using UnityEngine;
 public class GhostReplaySystem : MonoBehaviour
 {
     [SerializeField] private LevelManager levelManager;
+    public LevelGhostManager activelevel;
     private HashSet<int> existingLevelNos = new HashSet<int>();
     public List<LevelGhostManager> replaylevelManagers = new List<LevelGhostManager>();
 
@@ -49,6 +50,7 @@ public class GhostReplaySystem : MonoBehaviour
                         BallType = type ,
                         ghost = ghost ,
                     };
+                    ghostInfo.ghost.recordFrequency = 2f;
                     levelGhostManager.ghosts.Add(ghostInfo);
                     // Possibly store or associate ghostInfo with levelGhostManager or other tracking
                 }
@@ -146,5 +148,15 @@ public class GhostReplaySystem : MonoBehaviour
             tempData.Add((levelinfo [j].ballType, levelinfo [j].ballCount));
         }
         return tempData;
+    }
+
+    public void SetActiveLevel (LevelDetails level)
+    {
+        activelevel = level.GetComponent<LevelDetails>().levelGhostManager;
+    }
+
+    public void ResetlevelRecorder ()
+    {
+        activelevel.ResetRecordingCamera();
     }
 }
