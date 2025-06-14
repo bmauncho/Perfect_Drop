@@ -15,7 +15,6 @@ public class GhostReplaySystem : MonoBehaviour
     public void CreateReplayManager () 
     { 
         int totalLevels = levelManager.Levels.Count;
-        Debug.Log(totalLevels);
         for (int i = 0 ; i < totalLevels ; i++)
         {
             int level = i + 1;
@@ -118,6 +117,8 @@ public class GhostReplaySystem : MonoBehaviour
                 levelDetails.levelGhostManager = ghostManager;
             }
         }
+
+        SetActiveLevel(levelDetails);
     }
 
     private bool managerExists ( int level )

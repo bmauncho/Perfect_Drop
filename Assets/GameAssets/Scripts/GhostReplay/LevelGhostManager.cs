@@ -9,7 +9,10 @@ public class GhostInfo
     public BallType BallType;
     public Ghost ghost;
     public float timeStamp;
+    public string Identifier = string.Empty;
 }
+
+
 
 [CreateAssetMenu]
 public class LevelGhostManager : ScriptableObject
@@ -18,9 +21,8 @@ public class LevelGhostManager : ScriptableObject
     public bool HasRecord = false;
     public bool isRecording;
     public bool isReplaying;
-    float timer;
     public List<GhostInfo> ghosts = new List<GhostInfo>();
-    public List<(Balls balls, float timeStamp)> ghostIdentifiers = new List<(Balls balls, float timeStamp)>();
+    public List<GhostInfo> ghostIdentifiers = new List<GhostInfo>();
     public void ResetManager ()
     {
         ghosts.Clear();
@@ -57,32 +59,41 @@ public class LevelGhostManager : ScriptableObject
         }
     }
 
-    private void Update ()
+    public void SetDropTime ( GhostInfo info)
     {
-        timer += Time.unscaledDeltaTime;
-    }
 
-    public void SetDropTime ( Balls balls)
-    {
-        if (!ghostIdentifiers.Exists(g => g.balls == balls))
+        // Find the corresponding GhostInfo
+        Ghost targetGhost = info.ghost;
+
+        foreach (var ghostInfo in ghosts)
         {
-            ghostIdentifiers.Add((balls, timer));
+            if (ghostInfo.ghost == targetGhost)
+            {
+                ghostInfo.Identifier = info.Identifier;
+                ghostInfo.timeStamp = info.timeStamp;
+                ghostIdentifiers.Add(info);
+                break;
+            }
         }
     }
 
     public bool HasSavedRecord ()
     {
         bool savedRecord = false;
-        
+        int count = 0;
         for(int i = 0 ; i < ghosts.Count ; i++)
         {
             if (ghosts [i].ghost.isPrevDataAvailable())
             {
-                savedRecord = true;
-                break;
+                count++;
             }
         }
-        savedRecord = HasRecord;
+        if (count > 0)
+        {
+            savedRecord = true;
+        }
+
+        HasRecord = savedRecord;
         return HasRecord;
     }
 
@@ -90,14 +101,13 @@ public class LevelGhostManager : ScriptableObject
     {
         isRecording = false;
         isReplaying = false;
-        timer = 0f;
-        HasRecord = false;
         foreach (var ghostInfo in ghosts)
         {
             ghostInfo.ghost.ResetData();
             ghostInfo.ghost.isRecord = false;
             ghostInfo.ghost.isReplay = false;
         }
+        HasRecord = HasSavedRecord();
         ghostIdentifiers.Clear();
     }
 }

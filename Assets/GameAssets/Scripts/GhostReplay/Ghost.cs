@@ -20,30 +20,28 @@ public class Ghost : ScriptableObject
 
     public void ResetData ()
     {
-        if (!isPrevDataAvailable() && !isCurrDataAvailable()) 
+        if (!isPrevDataAvailable() && !isCurrDataAvailable())
         {
             Debug.Log("No Data to reset.");
-            return; 
+            return;
         }
 
-        if (isPrevDataAvailable() && isCurrDataAvailable() ||
-           !isPrevDataAvailable() && isCurrDataAvailable())
+        if (isPrevDataAvailable() && isCurrDataAvailable() 
+            || !isPrevDataAvailable() && isCurrDataAvailable())
         {
             Debug.Log("Save currRecord to prevRecord! ");
+            ClearPrevData();
             prevRecord = new RecordData
             {
-                timeStamp = new List<float>() ,
-                position = new List<Vector3>() ,
-                rotation = new List<Vector3>()
+                timeStamp = new List<float>(currRecord.timeStamp) ,
+                position = new List<Vector3>(currRecord.position) ,
+                rotation = new List<Vector3>(currRecord.rotation)
             };
-            //replace prev data with curr data
-            prevRecord.timeStamp = currRecord.timeStamp;
-            prevRecord.position = currRecord.position;
-            prevRecord.rotation = currRecord.rotation;
             Debug.Log("Clear  currRecord! ");
             ClearCurrentData();
         }
     }
+
 
     public void ClearPrevData ()
     {
@@ -62,18 +60,18 @@ public class Ghost : ScriptableObject
     public bool isPrevDataAvailable ()
     {
         bool isRecordAvailable =
-            ( prevRecord.timeStamp != null || prevRecord.timeStamp.Count > 0 ) &&
-            ( prevRecord.position != null || prevRecord.position.Count > 0 ) &&
-            ( prevRecord.rotation != null || prevRecord.rotation.Count > 0 );
+            ( prevRecord.timeStamp != null && prevRecord.timeStamp.Count > 0 ) &&
+            ( prevRecord.position != null && prevRecord.position.Count > 0 ) &&
+            ( prevRecord.rotation != null && prevRecord.rotation.Count > 0 );
         return isRecordAvailable;
     }
 
     public bool isCurrDataAvailable ()
     {
         bool isRecordAvailable =
-            ( currRecord.timeStamp != null || currRecord.timeStamp.Count > 0 ) &&
-            ( currRecord.position != null || currRecord.position.Count > 0 ) &&
-            ( currRecord.rotation != null || currRecord.rotation.Count > 0 );
+            ( currRecord.timeStamp != null && currRecord.timeStamp.Count > 0 ) &&
+            ( currRecord.position != null && currRecord.position.Count > 0 ) &&
+            ( currRecord.rotation != null && currRecord.rotation.Count > 0 );
         return isRecordAvailable;
     }
 }

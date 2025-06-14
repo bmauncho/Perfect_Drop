@@ -12,11 +12,12 @@ public class LevelDetails : MonoBehaviour
 {
     PoolManager poolManager;
     [Header("Level Details")]
-    [SerializeField] private bool isBallTouchingTrigger;
-    [SerializeField] private Transform spawnPoint;
-    [SerializeField] private LevelInfo[] levelInfo;
     public bool isLevelWon =false;
     public bool isLevelFailed = false;
+    [SerializeField] private bool isBallTouchingTrigger;
+    [SerializeField] private float timer;
+    [SerializeField] private Transform spawnPoint;
+    [SerializeField] private LevelInfo[] levelInfo;
     public LevelGhostManager levelGhostManager;
     public List<Balls> balls = new List<Balls>();
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -26,7 +27,7 @@ public class LevelDetails : MonoBehaviour
         CommandCenter.Instance.ghostReplaySystem_.AssignLevelReplayManagers();
         SetUp();
         levelGhostManager.Record();
-       // levelGhostManager.Replay();
+        levelGhostManager.Replay();
         balls.Clear();
     }
     private void SetUp ()
@@ -38,6 +39,10 @@ public class LevelDetails : MonoBehaviour
                 level.OriginalballCount = level.ballCount;
             }
         }
+    }
+    private void Update ()
+    {
+        timer+=Time.unscaledDeltaTime;
     }
 
     public void DropBall( BallType ballType)
@@ -75,7 +80,16 @@ public class LevelDetails : MonoBehaviour
         Ball.GetComponent<Balls>().ghostRecorder = ghostRecorder; // Assign the ghost recorder to the ball
         Ball.GetComponent<Balls>().Identifier = assetName; // Set the identifier for the ball
         ghostRecorder.Identifier = assetName; // Set the identifier for the ghost recorder
-        levelGhostManager.SetDropTime(Ball.GetComponent<Balls>());
+        GhostInfo ghostInfo = new GhostInfo
+        {
+            BallType = type ,
+            ghost = ghost ,
+            timeStamp = timer,
+            Identifier = assetName
+
+        };
+        Debug.Log($"identifier : {assetName}");
+        levelGhostManager.SetDropTime(ghostInfo);
     }
     public int GetGhostIndex ( BallType type )
     {

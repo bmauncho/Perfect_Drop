@@ -73,6 +73,8 @@ public class LevelEnd : MonoBehaviour
         CommandCenter.Instance.timeManager_.StartTimer();
         CommandCenter.Instance.mainMenuController_.isLevelStarted = true;
         CommandCenter.Instance.mainMenuController_.isLevelEnded = false;
+
+        CommandCenter.Instance.ghostReplaySystem_.ResetlevelRecorder();
     }
 
     public void NextLevel ()
@@ -84,6 +86,7 @@ public class LevelEnd : MonoBehaviour
         CommandCenter.Instance.timeManager_.StartTimer();
         CommandCenter.Instance.mainMenuController_.isLevelStarted = true;
         CommandCenter.Instance.mainMenuController_.isLevelEnded = false;
+        CommandCenter.Instance.ghostReplaySystem_.ResetlevelRecorder();
     }
 
     public void MainMenu ()
@@ -97,5 +100,6 @@ public class LevelEnd : MonoBehaviour
         CommandCenter.Instance.levelManager_.RestartLevel();
         CommandCenter.Instance.mainMenuController_.isLevelStarted = true;
         CommandCenter.Instance.mainMenuController_.isLevelEnded =false;
+        CommandCenter.Instance.ghostReplaySystem_.ResetlevelRecorder();
     }
 }

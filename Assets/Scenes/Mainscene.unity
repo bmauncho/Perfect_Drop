@@ -3588,6 +3588,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelManager: {fileID: 1543269512}
+  activelevel: {fileID: 0}
   replaylevelManagers:
   - {fileID: 11400000, guid: a67ac019403df3f41b2ae59c260ba644, type: 2}
   - {fileID: 11400000, guid: 45ed5ec156fd3454e926dbbd01a0a2d2, type: 2}

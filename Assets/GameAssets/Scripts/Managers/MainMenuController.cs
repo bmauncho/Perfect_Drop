@@ -63,7 +63,5 @@ public class MainMenuController : MonoBehaviour
         CommandCenter.Instance.levelManager_.ActivateLevel();
         CommandCenter.Instance.gamePlayManager_.SetUpBtns();
         CommandCenter.Instance.timeManager_.StartTimer();
-        LevelDetails activeLevelDetails = CommandCenter.Instance.levelManager_.ActiveLevel.GetComponent<LevelDetails>();
-        CommandCenter.Instance.ghostReplaySystem_.SetActiveLevel(activeLevelDetails);
     }
 }
