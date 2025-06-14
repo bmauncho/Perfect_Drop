@@ -12,12 +12,12 @@ public class RecordData
 [CreateAssetMenu]
 public class Ghost : ScriptableObject
 {
+    public bool isSpawned;
     public bool isRecord;
     public bool isReplay;
     public float recordFrequency;
     public RecordData prevRecord;
     public RecordData currRecord;
-
     public void ResetData ()
     {
         if (!isPrevDataAvailable() && !isCurrDataAvailable())
@@ -73,5 +73,19 @@ public class Ghost : ScriptableObject
             ( currRecord.position != null && currRecord.position.Count > 0 ) &&
             ( currRecord.rotation != null && currRecord.rotation.Count > 0 );
         return isRecordAvailable;
+    }
+
+    private void OnDisable ()
+    {
+        isSpawned = false;
+        isRecord = false;
+        isReplay = false;
+    }
+
+    public void resetTriggers ()
+    {
+        isSpawned = false;
+        isRecord = false;
+        isReplay = false;
     }
 }

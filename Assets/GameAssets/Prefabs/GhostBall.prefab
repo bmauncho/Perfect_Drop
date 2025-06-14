@@ -96,7 +96,7 @@ TrailRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d29274d70cda4e348804775bf35d832f, type: 2}
+  - {fileID: 2100000, guid: ec6b92b0523bb0648801027a66d9d3b0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -148,8 +148,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.7207546, g: 0.7207546, b: 0.7207546, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 0.7207546, g: 0.7207546, b: 0.7207546, a: 0.88235295}
+      key1: {r: 1, g: 1, b: 1, a: 0.78431374}
       key2: {r: 1, g: 1, b: 1, a: 0.49019608}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -165,7 +165,7 @@ TrailRenderer:
       ctime6: 0
       ctime7: 0
       atime0: 0
-      atime1: 49151
+      atime1: 32768
       atime2: 65535
       atime3: 0
       atime4: 0
@@ -433,6 +433,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: c19c4d581da21544d8650aa084ac1bd8, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 53e807eb912aabd4fb812e82b0f9b0ad, type: 2}
     - target: {fileID: 919132149155446097, guid: c19c4d581da21544d8650aa084ac1bd8, type: 3}
       propertyPath: m_Name
       value: Soccer
@@ -536,6 +540,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: db2f4a5c0acbc43459e37d37a776413f, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: bd54c2f2dfcb15a498eaef8eb00693e3, type: 2}
     - target: {fileID: 919132149155446097, guid: db2f4a5c0acbc43459e37d37a776413f, type: 3}
       propertyPath: m_Name
       value: Rugby-ball
@@ -639,6 +647,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 3405ec22bef4339439b628ee6e6bdb36, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 07171875772e014409fe46dfb26dee0d, type: 2}
     - target: {fileID: 919132149155446097, guid: 3405ec22bef4339439b628ee6e6bdb36, type: 3}
       propertyPath: m_Name
       value: Tennis
@@ -742,6 +754,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 58221b671a0c3af4c86677e9fb49b604, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 9b8e66296c59ead4481921270f1ab568, type: 2}
     - target: {fileID: 919132149155446097, guid: 58221b671a0c3af4c86677e9fb49b604, type: 3}
       propertyPath: m_Name
       value: Baseball
@@ -845,6 +861,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: eaf91f38db66fc6439ff7704ed985e6c, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: b92e722bccce0e74281246972d866ee1, type: 2}
     - target: {fileID: 919132149155446097, guid: eaf91f38db66fc6439ff7704ed985e6c, type: 3}
       propertyPath: m_Name
       value: Volleyball
@@ -948,6 +968,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 73e7feea75218f842975c1e4a7b81bb6, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: f7dfda90e0dec2f4bbd8e978a22e14d1, type: 2}
     - target: {fileID: 919132149155446097, guid: 73e7feea75218f842975c1e4a7b81bb6, type: 3}
       propertyPath: m_Name
       value: Golf
@@ -1051,6 +1075,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 2b3788a0f64f23449a9c118bcd1db04d, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: a3bdc4fdc4f5f3e49bf1406b5d2a13cd, type: 2}
     - target: {fileID: 919132149155446097, guid: 2b3788a0f64f23449a9c118bcd1db04d, type: 3}
       propertyPath: m_Name
       value: Basketball

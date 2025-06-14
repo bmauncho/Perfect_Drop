@@ -12,8 +12,6 @@ public class GhostInfo
     public string Identifier = string.Empty;
 }
 
-
-
 [CreateAssetMenu]
 public class LevelGhostManager : ScriptableObject
 {
@@ -22,7 +20,16 @@ public class LevelGhostManager : ScriptableObject
     public bool isRecording;
     public bool isReplaying;
     public List<GhostInfo> ghosts = new List<GhostInfo>();
+    public List<GhostInfo> prevghostIdentifiers = new List<GhostInfo>();
     public List<GhostInfo> ghostIdentifiers = new List<GhostInfo>();
+
+    private void OnEnable ()
+    {
+        ghostIdentifiers.Clear();
+        prevghostIdentifiers.Clear();
+        prevghostIdentifiers = new List<GhostInfo>(GhostSystemDataSaver.LoadGhostData());
+    }
+
     public void ResetManager ()
     {
         ghosts.Clear();
@@ -61,7 +68,6 @@ public class LevelGhostManager : ScriptableObject
 
     public void SetDropTime ( GhostInfo info)
     {
-
         // Find the corresponding GhostInfo
         Ghost targetGhost = info.ghost;
 
@@ -88,7 +94,7 @@ public class LevelGhostManager : ScriptableObject
                 count++;
             }
         }
-        if (count > 0)
+        if (count >= ghosts.Count-1)
         {
             savedRecord = true;
         }
@@ -109,5 +115,6 @@ public class LevelGhostManager : ScriptableObject
         }
         HasRecord = HasSavedRecord();
         ghostIdentifiers.Clear();
+        prevghostIdentifiers.Clear();
     }
 }

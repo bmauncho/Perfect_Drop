@@ -49,7 +49,7 @@ public class GhostReplaySystem : MonoBehaviour
                         BallType = type ,
                         ghost = ghost ,
                     };
-                    ghostInfo.ghost.recordFrequency = 2f;
+                    ghostInfo.ghost.recordFrequency = 240f;
                     levelGhostManager.ghosts.Add(ghostInfo);
                     // Possibly store or associate ghostInfo with levelGhostManager or other tracking
                 }
@@ -159,5 +159,35 @@ public class GhostReplaySystem : MonoBehaviour
     public void ResetlevelRecorder ()
     {
         activelevel.ResetRecordingCamera();
+        foreach (var ghostInfo in activelevel.ghosts)
+        {
+            if (ghostInfo.ghost != null)
+            {
+                ghostInfo.ghost.isRecord = false;
+                ghostInfo.ghost.isReplay = false;
+                ghostInfo.ghost.isSpawned = false;
+            }
+        }
+    }
+
+    public void resetGhosts ()
+    {
+        foreach (var levelGhostManager in replaylevelManagers)
+        {
+            if (levelGhostManager != null 
+                && levelGhostManager.ghosts != null 
+                && levelGhostManager.ghosts.Count > 0)
+            {
+                foreach (var ghostInfo in levelGhostManager.ghosts)
+                {
+                    if (ghostInfo.ghost != null)
+                    {
+                        ghostInfo.ghost.isRecord = false;
+                        ghostInfo.ghost.isReplay = false;
+                        ghostInfo.ghost.isSpawned = false;
+                    }
+                }
+            }
+        }
     }
 }

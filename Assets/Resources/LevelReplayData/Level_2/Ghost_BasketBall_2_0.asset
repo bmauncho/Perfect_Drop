@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9feda9189742f974391ea1ded5b466e7, type: 3}
   m_Name: Ghost_BasketBall_2_0
   m_EditorClassIdentifier: 
+  isSpawned: 0
   isRecord: 0
   isReplay: 0
   recordFrequency: 0

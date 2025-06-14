@@ -122,6 +122,8 @@ public class LevelDetails : MonoBehaviour
         isLevelWon = true;
         CommandCenter.Instance.mainMenuController_.levelEnd.ShowWinLevelUI(); // Show the win level UI
         CommandCenter.Instance.timeManager_.stopTimer();
+        // Save the ghost data if the level is succeeded
+        GhostSystemDataSaver.SaveGhostData(levelGhostManager.ghostIdentifiers);
     }
 
     public void LevelFailed ()
@@ -130,6 +132,28 @@ public class LevelDetails : MonoBehaviour
         isLevelFailed = true;
         CommandCenter.Instance.mainMenuController_.levelEnd.ShowFailedLevelUI(); // Show the failed level UI
         CommandCenter.Instance.timeManager_.stopTimer();
+        // Clear the ghost data if the level is failed
+        if (!levelGhostManager.HasSavedRecord())
+        {
+            foreach(var ghost in levelGhostManager.ghosts)
+            {
+                if (ghost != null && ghost.ghost != null )
+                {
+                    ghost.ghost.ClearCurrentData();
+                    ghost.ghost.ClearPrevData();
+                }
+            }
+        }
+        else
+        {
+            foreach (var ghost in levelGhostManager.ghosts)
+            {
+                if (ghost != null && ghost.ghost != null)
+                {
+                    ghost.ghost.ClearCurrentData();
+                }
+            }
+        }
     }
 
     public bool IsBallTouchingTrigger ()

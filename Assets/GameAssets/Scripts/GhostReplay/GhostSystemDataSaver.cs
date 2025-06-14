@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Newtonsoft.Json;
+using System.IO;
 
 [System.Serializable]
 public class GhostInfoListWrapper
@@ -11,10 +13,11 @@ public class GhostInfoListWrapper
 public class GhostInfoSaveData
 {
     public BallType BallType;
-    public string ghostName; // Or some ID to identify Ghost
+    public string ghostName;
     public float timeStamp;
     public string Identifier;
 }
+
 public static class GhostSystemDataSaver
 {
     public static List<GhostInfoSaveData> ConvertToSaveData ( List<GhostInfo> data )
@@ -36,7 +39,7 @@ public static class GhostSystemDataSaver
     public static void SaveGhostData ( List<GhostInfo> ghostIdentifiers )
     {
         var saveData = ConvertToSaveData(ghostIdentifiers);
-        string json = JsonUtility.ToJson(new GhostInfoListWrapper { data = saveData });
+        string json = JsonConvert.SerializeObject(new GhostInfoListWrapper { data = saveData } , Formatting.Indented);
 
         PlayerPrefs.SetString("GhostData" , json);
         PlayerPrefs.Save();
@@ -47,7 +50,7 @@ public static class GhostSystemDataSaver
         string json = PlayerPrefs.GetString("GhostData" , "");
         if (string.IsNullOrEmpty(json)) return new List<GhostInfo>();
 
-        GhostInfoListWrapper wrapper = JsonUtility.FromJson<GhostInfoListWrapper>(json);
+        GhostInfoListWrapper wrapper = JsonConvert.DeserializeObject<GhostInfoListWrapper>(json);
         var result = new List<GhostInfo>();
 
         foreach (var saveData in wrapper.data)
@@ -55,7 +58,7 @@ public static class GhostSystemDataSaver
             result.Add(new GhostInfo
             {
                 BallType = saveData.BallType ,
-                ghost = LoadGhostByName(saveData.ghostName) ,
+                ghost = LoadGhostByName(saveData.ghostName,saveData.BallType) ,
                 timeStamp = saveData.timeStamp ,
                 Identifier = saveData.Identifier
             });
@@ -64,10 +67,28 @@ public static class GhostSystemDataSaver
         return result;
     }
 
-    private static Ghost LoadGhostByName ( string ghostName )
+    private static Ghost LoadGhostByName ( string ghostName ,BallType type)
     {
         if (string.IsNullOrEmpty(ghostName)) return null;
-        string folderPath = "Assets/Resources/LevelReplayData";
-        return Resources.Load<Ghost>($"{folderPath}/{ghostName}");
+        string folderPath = "LevelReplayData"; // Resources.Load uses relative path
+        int levelNo = GetLevel(ghostName ,type); 
+        return Resources.Load<Ghost>($"{folderPath}/Level_{levelNo}/{ghostName}");
     }
+
+    public static int GetLevel ( string name , BallType ballType )
+    {
+        int levelNo = 0;
+
+        if (name.Contains($"Ghost_{ballType}_"))
+        {
+            string [] parts = name.Split('_');
+            if (parts.Length > 2 && int.TryParse(parts [2] , out levelNo))
+            {
+                return levelNo;
+            }
+        }
+
+        return levelNo;
+    }
+
 }

@@ -68,31 +68,32 @@ public class LevelEnd : MonoBehaviour
     {
         HideFailedLevelUI();
         HideWinLevelUI();
+        CommandCenter.Instance.ghostReplaySystem_.ResetlevelRecorder();
         CommandCenter.Instance.levelManager_.RetryLevel();
         CommandCenter.Instance.gamePlayManager_.ResetGameplay();
         CommandCenter.Instance.timeManager_.StartTimer();
         CommandCenter.Instance.mainMenuController_.isLevelStarted = true;
         CommandCenter.Instance.mainMenuController_.isLevelEnded = false;
 
-        CommandCenter.Instance.ghostReplaySystem_.ResetlevelRecorder();
     }
 
     public void NextLevel ()
     {
         HideFailedLevelUI();
         HideWinLevelUI();
+        CommandCenter.Instance.ghostReplaySystem_.ResetlevelRecorder();
         CommandCenter.Instance.levelManager_.EndOfLevel();
         CommandCenter.Instance.gamePlayManager_.ResetGameplay();
         CommandCenter.Instance.timeManager_.StartTimer();
         CommandCenter.Instance.mainMenuController_.isLevelStarted = true;
         CommandCenter.Instance.mainMenuController_.isLevelEnded = false;
-        CommandCenter.Instance.ghostReplaySystem_.ResetlevelRecorder();
     }
 
     public void MainMenu ()
     {
         HideFailedLevelUI();
         HideWinLevelUI();
+        CommandCenter.Instance.ghostReplaySystem_.ResetlevelRecorder();
         CommandCenter.Instance.mainMenuController_.EnableMainMenuUI();
         CommandCenter.Instance.mainMenuController_.DisableGamePlayUi();
         CommandCenter.Instance.levelManager_.DeactivateLevel();
@@ -100,6 +101,5 @@ public class LevelEnd : MonoBehaviour
         CommandCenter.Instance.levelManager_.RestartLevel();
         CommandCenter.Instance.mainMenuController_.isLevelStarted = true;
         CommandCenter.Instance.mainMenuController_.isLevelEnded =false;
-        CommandCenter.Instance.ghostReplaySystem_.ResetlevelRecorder();
     }
 }
