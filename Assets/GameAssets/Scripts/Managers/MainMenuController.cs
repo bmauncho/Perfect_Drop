@@ -7,6 +7,7 @@ public class MainMenuController : MonoBehaviour
     [Header("UI Elements")]
     public GameObject GameplayUI;
     public GameObject MainMenuUI;
+    public GameObject LevelSelectionUI;
 
     [Header("References")]
     public LevelEnd levelEnd;
@@ -42,6 +43,39 @@ public class MainMenuController : MonoBehaviour
         MainMenuUI.SetActive(false);
     }
 
+    public void EnableLevelUI ()
+    {
+        LevelSelectionUI.SetActive(true);
+    }
+
+    public void DisableLevelUI ()
+    {
+        LevelSelectionUI.SetActive(false);
+    }
+
+    public void ShowLevelUI ()
+    {
+       Invoke(nameof(ActivateLevelUI) , .25f);
+    }
+
+    public void HideLevelUI ()
+    {
+        Invoke(nameof(DeactivateLevelUI) , .25f);
+    }
+
+    void ActivateLevelUI ()
+    {
+        EnableLevelUI();
+        DisableMainMenuUI();
+    }
+
+    void DeactivateLevelUI ()
+    {
+        DisableLevelUI();
+        EnableMainMenuUI();
+    }
+
+
     public void Startlevel ()
     {
         Invoke(nameof(triggerStart) , .25f);
@@ -53,11 +87,8 @@ public class MainMenuController : MonoBehaviour
             Debug.LogWarning("No lives left to start the level.");
             return;
         }
-        DisableMainMenuUI();
+        DisableLevelUI();
         EnableGamePlayUI();
-        //show levelSelection UI
-
-
         isLevelStarted = true;
         isLevelEnded = false;
         CommandCenter.Instance.levelManager_.ActivateLevel();
