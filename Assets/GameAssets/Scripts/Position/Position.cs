@@ -10,6 +10,7 @@ public class Position : MonoBehaviour
     public TMP_Text timeText;
     public Image positionBg;
     public Image positionHolderBg;
+    public Image Ranking;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
