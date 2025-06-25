@@ -1,6 +1,10 @@
 using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
+public enum FailType 
+{ 
+    OverFlow,
+}
 
 public class GamePlayManager : MonoBehaviour
 {

@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class LevelEnd : MonoBehaviour
 {
-    public GameObject winLevelUI; 
-    public GameObject failedLevelUI; 
+    public LevelWonUI winLevelUI; 
+    public LevelFailedUI failedLevelUI; 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -20,7 +20,7 @@ public class LevelEnd : MonoBehaviour
     {
         if (winLevelUI != null)
         {
-            winLevelUI.SetActive(true);
+            winLevelUI.gameObject.SetActive(true);
         }
         else
         {
@@ -32,7 +32,7 @@ public class LevelEnd : MonoBehaviour
     {
         if (winLevelUI != null)
         {
-            winLevelUI.SetActive(false);
+            winLevelUI.gameObject.SetActive(false);
         }
         else
         {
@@ -44,7 +44,7 @@ public class LevelEnd : MonoBehaviour
     {
         if (failedLevelUI != null)
         {
-            failedLevelUI.SetActive(true);
+            failedLevelUI.gameObject.SetActive(true);
         }
         else
         {
@@ -56,7 +56,7 @@ public class LevelEnd : MonoBehaviour
     {
         if (failedLevelUI != null)
         {
-            failedLevelUI.SetActive(false);
+            failedLevelUI.gameObject.SetActive(false);
         }
         else
         {
