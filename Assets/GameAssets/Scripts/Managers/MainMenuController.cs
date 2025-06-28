@@ -8,6 +8,7 @@ public class MainMenuController : MonoBehaviour
     public GameObject GameplayUI;
     public GameObject MainMenuUI;
     public GameObject LevelSelectionUI;
+    public GameObject PowerUpSelection;
 
     [Header("References")]
     public LevelEnd levelEnd;
@@ -74,20 +75,35 @@ public class MainMenuController : MonoBehaviour
         DisableLevelUI();
         EnableMainMenuUI();
     }
+    void ActivatePowerUpUI ()
+    {
+        PowerUpSelection.SetActive(true);
+    }
 
+    void DeactivatePowerUpUI ()
+    {
+        PowerUpSelection.SetActive(false);
+    }
+
+    public void ShowPowerUps ()
+    {
+        Invoke(nameof(triggerPowerUpSelection) , .25f);
+    }
+
+    void triggerPowerUpSelection ()
+    {
+        DisableLevelUI();
+        ActivatePowerUpUI();
+    }
 
     public void Startlevel ()
     {
         Invoke(nameof(triggerStart) , .25f);
     }
+
     void triggerStart ()
     {
-        if (CommandCenter.Instance.livesManager_.GetCurrentLives() <= 0)
-        {
-            Debug.LogWarning("No lives left to start the level.");
-            return;
-        }
-        DisableLevelUI();
+        DeactivatePowerUpUI();
         EnableGamePlayUI();
         isLevelStarted = true;
         isLevelEnded = false;

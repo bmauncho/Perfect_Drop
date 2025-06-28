@@ -1,21 +1,25 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using GifImporter;
 
 public class LevelWonUI : MonoBehaviour
 {
     public TMP_Text timetaken;
-    public Image winGif;
-    public Position [] Positions; // Array of Position objects to hold the positions in the level
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public Position [] Positions;
+    public Gif [] wonGifs;
+    public GifPlayer gifPlayer;
 
-    // Update is called once per frame
-    void Update()
+    public void SetWinDetails (string timeTaken)
     {
-        
+        timetaken.text = timeTaken;
+        if (gifPlayer != null && wonGifs.Length > 0)
+        {
+            gifPlayer.Gif = wonGifs [Random.Range(0 , wonGifs.Length)];
+        }
+        else
+        {
+            Debug.LogWarning("Gif Player or Won Gifs are not set.");
+        }
     }
 }
