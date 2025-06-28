@@ -26,7 +26,7 @@ public class LevelGhostManager : ScriptableObject
     private void OnEnable ()
     {
         ghostIdentifiers.Clear();
-        prevghostIdentifiers.Clear();
+        clearPrevGhostIds();
         prevghostIdentifiers = new List<GhostInfo>(GhostSystemDataSaver.LoadGhostData());
     }
 
@@ -35,26 +35,31 @@ public class LevelGhostManager : ScriptableObject
         ghosts.Clear();
     }
 
+    public void clearPrevGhostIds ()
+    {
+        prevghostIdentifiers.Clear();
+        Debug.Log("Previous ghost identifiers cleared.");
+    }
+
     public void Record ()
     {
-        if (!isRecording)
+        Debug.Log("Record");
+        isRecording = true;
+        foreach (var ghostInfo in ghosts)
         {
-            isRecording = true;
-            foreach (var ghostInfo in ghosts)
+            if (!ghostInfo.ghost.isRecord)
             {
-                if (!ghostInfo.ghost.isRecord)
-                {
-                    ghostInfo.ghost.ResetData();
-                    ghostInfo.ghost.isRecord = true;
-                }
+                ghostInfo.ghost.ResetData();
+                ghostInfo.ghost.isRecord = true;
             }
         }
     }
 
     public void Replay ()
     {
-        if (!isReplaying && HasRecord)
+        if (HasSavedRecord())
         {
+            Debug.Log("Replay");
             isReplaying = true;
             foreach (var ghostInfo in ghosts)
             {
@@ -112,9 +117,10 @@ public class LevelGhostManager : ScriptableObject
             ghostInfo.ghost.ResetData();
             ghostInfo.ghost.isRecord = false;
             ghostInfo.ghost.isReplay = false;
+            ghostInfo.timeStamp = 0f;
         }
         HasRecord = HasSavedRecord();
         ghostIdentifiers.Clear();
-        prevghostIdentifiers.Clear();
     }
+
 }

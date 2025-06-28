@@ -44,7 +44,7 @@ public class GhostRecorder : MonoBehaviour
             ghost.currRecord.position.Add(this.transform.position);
             ghost.currRecord.rotation.Add(this.transform.eulerAngles);
             timer = 0;
-            Debug.Log("Recorded frame");
+            //Debug.Log("Recorded frame");
         }
     }
 }

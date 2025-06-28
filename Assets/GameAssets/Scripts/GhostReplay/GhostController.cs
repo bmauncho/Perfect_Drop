@@ -1,13 +1,12 @@
-using UnityEditorInternal;
 using UnityEngine;
 
 public class GhostController : MonoBehaviour
 {
     [SerializeField] private bool isGhostReplayEnabled = false;
-    BallManager ballManager;
-    PoolManager poolManager;
-    LevelDetails levelDetails;
-    LevelGhostManager levelGhostManager;
+    [SerializeField] BallManager ballManager;
+    [SerializeField] PoolManager poolManager;
+    [SerializeField] LevelDetails levelDetails;
+    [SerializeField] LevelGhostManager levelGhostManager;
     [SerializeField] private float timer;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -21,7 +20,11 @@ public class GhostController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!CommandCenter.Instance) { return; }
+        if (!CommandCenter.Instance) 
+        { 
+            Debug.LogWarning("CommandCenter instance not found!");
+            return;
+        }
         timer = CommandCenter.Instance.timeManager_.GetTimeValue();
         if (levelDetails == null || levelGhostManager == null)
         {
@@ -30,8 +33,17 @@ public class GhostController : MonoBehaviour
         }
 
         isGhostReplayEnabled = levelGhostManager.HasSavedRecord();
-        if (!isGhostReplayEnabled) { return; }
+        if (!isGhostReplayEnabled) 
+        {
+            Debug.Log("Ghost replay is not enabled or no ghosts available to replay!");
+            return;
+        }
 
+        if (levelGhostManager.ghosts == null || levelGhostManager.ghosts.Count <= 0)
+        {
+            Debug.Log("No ghosts available to replay!");
+            return; // No ghosts to replay
+        }
         foreach (var ghost in levelGhostManager.ghosts)
         {
             if(ghost == null)
@@ -40,9 +52,13 @@ public class GhostController : MonoBehaviour
                 continue; // Skip null ghosts
             }
 
-            foreach(var info in levelGhostManager.ghostIdentifiers)
+            foreach(var info in levelGhostManager.prevghostIdentifiers)
             {
-                if(timer >= ghost.timeStamp 
+                //Debug.Log($"Checking ghost: {ghost.ghost.name}\n, timeCheck: {timer >= ghost.timeStamp}\n, " +
+                //          $"objectMatch: {ghost.ghost == info.ghost}\n, identifierMatch: {ghost.Identifier == info.Identifier}\n, " +
+                //          $"isSpawned: {!ghost.ghost.isSpawned}\n, hasPrevData: {ghost.ghost.isPrevDataAvailable()}\n");
+
+                if (timer >= info.timeStamp 
                     && ghost.ghost == info.ghost
                     && ghost.Identifier == info.Identifier
                     && !ghost.ghost.isSpawned

@@ -23,12 +23,12 @@ public class LevelDetails : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        balls.Clear();
         poolManager = CommandCenter.Instance.poolManager_;
         CommandCenter.Instance.ghostReplaySystem_.AssignLevelReplayManagers();
         SetUp();
         levelGhostManager.Record();
         levelGhostManager.Replay();
-        balls.Clear();
     }
     private void SetUp ()
     {

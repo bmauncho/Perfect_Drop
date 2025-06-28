@@ -17,4 +17,5 @@ MonoBehaviour:
   isRecording: 0
   isReplaying: 0
   ghosts: []
+  prevghostIdentifiers: []
   ghostIdentifiers: []

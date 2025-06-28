@@ -183,7 +183,7 @@ public class GamePlayManager : MonoBehaviour
 
     public bool isBallOutOfBounds ()
     {
-        if(BallsIncurrentLevel.Count <= 0) { return false; }
+        if(BallsIncurrentLevel == null || BallsIncurrentLevel.Count <= 0) { return false; }
         // Check if any ball in the current level is out of bounds
         for(int i = 0 ; i < BallsIncurrentLevel.Count ; i++)
         {

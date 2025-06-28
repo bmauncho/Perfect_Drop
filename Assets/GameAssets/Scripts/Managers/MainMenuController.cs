@@ -105,6 +105,7 @@ public class MainMenuController : MonoBehaviour
     {
         DeactivatePowerUpUI();
         EnableGamePlayUI();
+        DisableMainMenuUI();
         isLevelStarted = true;
         isLevelEnded = false;
         CommandCenter.Instance.levelManager_.ActivateLevel();
